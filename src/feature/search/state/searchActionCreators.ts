@@ -1,10 +1,7 @@
 import { fetchReposByName } from './../../../api/api';
 import {
-  LIST_FAILED,
-  LIST_LOADING,
-  LIST_SUCCESS,
+  FetchListActions,
   LoadFromLocalPayload,
-  LOAD_FROM_LOCAL,
   SearchActionTypes,
   searchByEnum,
   SuccessActionPayload,
@@ -16,6 +13,15 @@ import { AxiosResponse } from 'axios';
 import { User } from './models/users';
 import { Repository } from './models/repos';
 
+/**
+ * Action creator which will dispatch a function to the search reducer.
+ * @param searchTerm the text typed by user in the input text.
+ * @param type type of search , whether by user or by repository.
+ * @param isCached a boolean flag to determine if we fetch data from api or from our cached data.
+ *
+ * @returns a function which dispatch the needed action for doing the search.
+ */
+
 export const proceedSearch = (
   searchTerm: string,
   type: string,
@@ -25,20 +31,19 @@ export const proceedSearch = (
     ? fetchDataFromLocalStorage(searchTerm, type)
     : fetchDataFromApi(searchTerm, type);
 
-export const toggleSearchType = (type: string) => (
-  dispatch: Dispatch<SearchActionTypes<string>>
-) => {
-  dispatch({
-    type,
-    payload: 'null',
-  });
-};
-
+/**
+ * Local function to return the actions related to fetching data from API.
+ *
+ * @param searchTerm the text typed by user in the input text.
+ * @param type type of search , whether by user or by repository.
+ *
+ * @returns a function which dispatch the needed action for doing the search.
+ */
 const fetchDataFromApi = (searchTerm: string, type: string) => async (
   dispatch: Dispatch<SearchActionTypes<any>>
 ) => {
   dispatch({
-    type: LIST_LOADING,
+    type: FetchListActions.LIST_LOADING,
     payload: null,
   });
   try {
@@ -51,7 +56,7 @@ const fetchDataFromApi = (searchTerm: string, type: string) => async (
             ApiResponse<Repository>
           >);
     dispatch({
-      type: LIST_SUCCESS,
+      type: FetchListActions.LIST_SUCCESS,
       payload: {
         searchBy: type,
         repos:
@@ -62,7 +67,7 @@ const fetchDataFromApi = (searchTerm: string, type: string) => async (
     });
   } catch (e) {
     dispatch({
-      type: LIST_FAILED,
+      type: FetchListActions.LIST_FAILED,
       payload: {
         code: 12,
         message: e,
@@ -71,20 +76,45 @@ const fetchDataFromApi = (searchTerm: string, type: string) => async (
   }
 };
 
+/**
+ * Local function to return the actions related to fetching data from Local Storage.
+ *
+ * @param searchTerm the text typed by user in the input text.
+ * @param type type of search , whether by user or by repository.
+ *
+ * @returns a function which dispatch the needed action for doing the search.
+ */
 const fetchDataFromLocalStorage = (searchTerm: string, type: string) => async (
   dispatch: Dispatch<SearchActionTypes<any>>
 ) => {
   dispatch({
-    type: LIST_LOADING,
+    type: FetchListActions.LIST_LOADING,
     payload: null,
   });
   setTimeout(() => {
     dispatch({
-      type: LOAD_FROM_LOCAL,
+      type: FetchListActions.LOAD_FROM_LOCAL,
       payload: {
         searchTerm,
         searchBy: type,
       } as LoadFromLocalPayload,
     });
   }, 1000);
+};
+
+/**
+ * Action creator responsible for dispatching an action about changing the search type (user | repo)
+ *
+ * @param type
+ *
+ * @returns a function which dispatch the needed action for doing the search.
+ */
+
+export const toggleSearchType = (type: string) => (
+  dispatch: Dispatch<SearchActionTypes<string>>
+) => {
+  dispatch({
+    type,
+    payload: 'null',
+  });
 };

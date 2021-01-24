@@ -27,6 +27,9 @@ export interface License {
     node_id: string;
 }
 
+/**
+ * Repository. is the model or the type of data we are receiving from Github API ,when we search for a specific repository
+ */
 export interface Repository {
     id: number;
     node_id: string;

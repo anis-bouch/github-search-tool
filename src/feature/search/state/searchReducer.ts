@@ -1,25 +1,28 @@
-import { searchByEnum, LOAD_FROM_LOCAL } from './searchTypes';
+import { searchByEnum, FetchListActions } from './searchTypes';
 import { initState } from './init-data';
 import {
   SearchActionTypes,
   GlobalState,
-  LIST_LOADING,
-  LIST_FAILED,
-  LIST_SUCCESS,
 } from './searchTypes';
-
+/**
+ * Search reducer , which is the function responsible about updating our state with no side effects.
+ * @param state our global state 
+ * @param action the action dispatched 
+ * 
+ * @returns our global state after modification purely.
+ */
 export const searchReducer = (
   state: GlobalState = initState,
   action: SearchActionTypes<any>
 ): GlobalState => {
   switch (action.type) {
-    case LIST_LOADING: {
+    case FetchListActions.LIST_LOADING: {
       return {
         ...state,
         loading: true,
       };
     }
-    case LIST_FAILED: {
+    case FetchListActions.LIST_FAILED: {
       return {
         ...state,
         loading: false,
@@ -29,7 +32,7 @@ export const searchReducer = (
         },
       };
     }
-    case LIST_SUCCESS:
+    case FetchListActions.LIST_SUCCESS:
       return {
         ...state,
         usersToBeShown:
@@ -59,7 +62,7 @@ export const searchReducer = (
             : state.cachedRepositories,
       };
 
-    case LOAD_FROM_LOCAL: {
+    case FetchListActions.LOAD_FROM_LOCAL: {
       return {
         ...state,
         usersToBeShown:

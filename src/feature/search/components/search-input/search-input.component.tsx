@@ -1,8 +1,11 @@
-import { ChangeEvent } from 'react'; // let's also import Component
+import { ChangeEvent } from 'react';
 import { proceedSearch } from '../../state/searchActionCreators';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchByEnum } from '../../state/searchTypes';
 import { RootStore } from '../../../../store';
+/**
+ * SearchInput, is the definition of our inpuit component, which will be used to type term of our search.
+ */
 export function SearchInput() {
   const dispatch = useDispatch();
   const searchState = useSelector((state: RootStore) => state.search);

@@ -1,3 +1,6 @@
+/**
+ * User. is the model or the type of data we are receiving from Github API ,when we search for a specific user
+ */
 export interface User {
     login: string;
     id: number;
