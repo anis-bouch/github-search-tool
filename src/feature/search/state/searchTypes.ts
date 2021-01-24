@@ -19,6 +19,7 @@ export enum searchByEnum {
 export const LIST_LOADING = 'LIST_LOADING';
 export const LIST_FAILED = 'LIST_FAILED';
 export const LIST_SUCCESS = 'LIST_SUCCESS';
+export const LOAD_FROM_LOCAL = 'LOAD_FROM_LOCAL';
 
 // state
 
@@ -29,9 +30,16 @@ export interface SuccessActionPayload {
   searchTerm: string;
 }
 
+export interface LoadFromLocalPayload {
+  searchTerm: string;
+  searchBy: string;
+}
+
 export interface GlobalState {
-  users: User[];
-  repositories: Repository[];
+  usersToBeShown: User[];
+  repositoriesToBeShown: Repository[];
+  cachedUsers: User[];
+  cachedRepositories: Repository[];
   previousSearchesUsers: string[];
   previousSearchesRepositories: string[];
   searchType: string;

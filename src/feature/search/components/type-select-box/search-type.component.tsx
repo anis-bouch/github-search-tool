@@ -16,7 +16,7 @@ export function SearchType () {
     return (
         <select onChange={selectSearchType}>
         {types.map((type, index) =>
-          <option key={index} value={type.value}>{type.value}</option>
+          <option key={index} value={type.value}>{type.label}</option>
         )}
       </select>
     )

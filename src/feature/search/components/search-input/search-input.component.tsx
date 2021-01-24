@@ -13,11 +13,27 @@ export function SearchInput() {
           event.target.value,
           searchState.searchType === searchByEnum.USERS
             ? searchByEnum.USERS
-            : searchByEnum.REPOSITORY
+            : searchByEnum.REPOSITORY,
+          searchState.searchType === searchByEnum.USERS
+            ? !!searchState.previousSearchesUsers.find(
+                (user) => user === event.target.value
+              )
+            : !!searchState.previousSearchesRepositories.find(
+                (repo) => repo === event.target.value
+              )
         )
       );
     }
   };
 
-  return <input type='text' name='' id='' disabled={searchState.loading} onChange={triggerSearch} />;
+  return (
+    <input
+      type='text'
+      name=''
+      id=''
+      placeholder='Start typing to search ..'
+      disabled={searchState.loading}
+      onChange={triggerSearch}
+    />
+  );
 }

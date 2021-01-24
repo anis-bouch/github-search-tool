@@ -1,4 +1,4 @@
-import { searchByEnum } from './searchTypes';
+import { searchByEnum, LOAD_FROM_LOCAL } from './searchTypes';
 import { initState } from './init-data';
 import {
   SearchActionTypes,
@@ -32,25 +32,51 @@ export const searchReducer = (
     case LIST_SUCCESS:
       return {
         ...state,
-        users:
-          action.payload.searchBy === 'USER'
+        usersToBeShown:
+          action.payload.searchBy === searchByEnum.USERS
             ? action.payload.users
-            : state.users,
-        repositories:
-          action.payload.searchBy === 'REPOSITORY'
+            : state.usersToBeShown,
+        repositoriesToBeShown:
+          action.payload.searchBy === searchByEnum.REPOSITORY
             ? action.payload.repos
-            : state.repositories,
+            : state.repositoriesToBeShown,
         previousSearchesUsers:
-          action.payload.searchBy === 'USER'
+          action.payload.searchBy === searchByEnum.USERS
             ? [action.payload.searchTerm, ...state.previousSearchesUsers]
             : state.previousSearchesUsers,
         previousSearchesRepositories:
-          action.payload.searchBy === 'REPOSITORY'
+          action.payload.searchBy === searchByEnum.REPOSITORY
             ? [action.payload.searchTerm, ...state.previousSearchesRepositories]
             : state.previousSearchesRepositories,
         loading: false,
-        
+        cachedUsers:
+          action.payload.searchBy === searchByEnum.USERS
+            ? state.cachedUsers.concat(action.payload.users)
+            : state.cachedUsers,
+        cachedRepositories:
+          action.payload.searchBy === searchByEnum.REPOSITORY
+            ? state.cachedRepositories.concat(action.payload.repos)
+            : state.cachedRepositories,
       };
+
+    case LOAD_FROM_LOCAL: {
+      return {
+        ...state,
+        usersToBeShown:
+          action.payload.searchBy === searchByEnum.USERS
+            ? state.usersToBeShown.filter((user) =>
+                user.login.includes(action.payload.searchTerm)
+              )
+            : state.usersToBeShown,
+        repositoriesToBeShown:
+          action.payload.searchBy === searchByEnum.REPOSITORY
+            ? state.repositoriesToBeShown.filter((repo) =>
+                repo.full_name.includes(action.payload.searchTerm)
+              )
+            : state.repositoriesToBeShown,
+        loading: false
+      };
+    }
     case searchByEnum.REPOSITORY || searchByEnum.REPOSITORY:
       return {
         ...state,

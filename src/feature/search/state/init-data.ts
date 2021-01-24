@@ -8,7 +8,9 @@ export const initState: GlobalState = {
     loading: false,
     previousSearchesRepositories: [],
     previousSearchesUsers: [],
-    repositories: [],
+    repositoriesToBeShown: [],
     searchType: searchByEnum.USERS,
-    users: []
+    usersToBeShown: [],
+    cachedRepositories: [],
+    cachedUsers: []
 }

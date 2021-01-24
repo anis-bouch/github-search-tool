@@ -1,0 +1,11 @@
+@import '../../../../scss/variables.scss';
+input {
+    @extend .grey-border;
+    height: 44px;
+    width: 330px;
+    font-size: 1.2rem;
+    padding-left: 20px;
+    &::placeholder {
+      color: $grey-placeholder;
+    }
+  }

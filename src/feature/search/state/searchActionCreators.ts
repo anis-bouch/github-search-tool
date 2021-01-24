@@ -3,6 +3,8 @@ import {
   LIST_FAILED,
   LIST_LOADING,
   LIST_SUCCESS,
+  LoadFromLocalPayload,
+  LOAD_FROM_LOCAL,
   SearchActionTypes,
   searchByEnum,
   SuccessActionPayload,
@@ -14,7 +16,25 @@ import { AxiosResponse } from 'axios';
 import { User } from './models/users';
 import { Repository } from './models/repos';
 
-export const proceedSearch = (searchTerm: string, type: string) => async (
+export const proceedSearch = (
+  searchTerm: string,
+  type: string,
+  isCached: boolean
+) =>
+  isCached
+    ? fetchDataFromLocalStorage(searchTerm, type)
+    : fetchDataFromApi(searchTerm, type);
+
+export const toggleSearchType = (type: string) => (
+  dispatch: Dispatch<SearchActionTypes<string>>
+) => {
+  dispatch({
+    type,
+    payload: 'null',
+  });
+};
+
+const fetchDataFromApi = (searchTerm: string, type: string) => async (
   dispatch: Dispatch<SearchActionTypes<any>>
 ) => {
   dispatch({
@@ -23,16 +43,21 @@ export const proceedSearch = (searchTerm: string, type: string) => async (
   });
   try {
     const dataFromRemote =
-      (type === searchByEnum.USERS
-        ? await fetchUsersByUserName(searchTerm) as AxiosResponse<ApiResponse<User>>
-        : await fetchReposByName(searchTerm) as AxiosResponse<ApiResponse<Repository>>);
+      type === searchByEnum.USERS
+        ? ((await fetchUsersByUserName(searchTerm)) as AxiosResponse<
+            ApiResponse<User>
+          >)
+        : ((await fetchReposByName(searchTerm)) as AxiosResponse<
+            ApiResponse<Repository>
+          >);
     dispatch({
       type: LIST_SUCCESS,
       payload: {
         searchBy: type,
-        repos: type === searchByEnum.REPOSITORY ? dataFromRemote.data.items : [],
+        repos:
+          type === searchByEnum.REPOSITORY ? dataFromRemote.data.items : [],
         users: type === searchByEnum.USERS ? dataFromRemote.data.items : [],
-        searchTerm
+        searchTerm,
       } as SuccessActionPayload,
     });
   } catch (e) {
@@ -46,11 +71,20 @@ export const proceedSearch = (searchTerm: string, type: string) => async (
   }
 };
 
-export const toggleSearchType = (type: string) => (
-  dispatch: Dispatch<SearchActionTypes<string>>
+const fetchDataFromLocalStorage = (searchTerm: string, type: string) => async (
+  dispatch: Dispatch<SearchActionTypes<any>>
 ) => {
   dispatch({
-    type,
-    payload: 'null',
+    type: LIST_LOADING,
+    payload: null,
   });
+  setTimeout(() => {
+    dispatch({
+      type: LOAD_FROM_LOCAL,
+      payload: {
+        searchTerm,
+        searchBy: type,
+      } as LoadFromLocalPayload,
+    });
+  }, 1000);
 };
