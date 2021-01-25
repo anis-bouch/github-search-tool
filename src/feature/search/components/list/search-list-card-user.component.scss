@@ -1,0 +1,38 @@
+@import '../../../../scss/_abstract';
+.card {
+  @extend .base-card;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .avatar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    img {
+      width: 100px;
+      height: 100px;
+      border: solid 5px white;
+      border-radius: 50%;
+    }
+    > * {
+      margin: 5px;
+    }
+  }
+}
+
+.profile-link {
+  padding: 10px 20px 10px 20px;
+  background: $primary;
+  border-color: $primary;
+  color: white;
+  border-radius: 100px;
+  transition: opacity .3s;
+  font-size: 0.75em;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}

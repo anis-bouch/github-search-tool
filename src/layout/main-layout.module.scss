@@ -1,15 +1,17 @@
-@import '../scss/variables.scss';
+@import '../scss/_abstract';
 
 .main-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 15% auto;
   .search-header {
-    @extend .display-flex;
+    @extend .display-flex-start-center;
     flex-direction: row;
     width: 500px;
+    @media screen  and (max-width: 768px) {
+      width: 60%;
+    }
     .logo {
       width: 50px;
       height: 50px;
@@ -32,16 +34,12 @@
     }
   }
   .search-container {
-    @extend .display-flex;
+    @extend .display-flex-start-center;
     flex-direction: row;
   }
-}
 
-.bold {
-  font-weight: bold;
+  .search-list {
+    margin-top: 5px;
+    width: 100%;
+  }
 }
-
-.big-font {
-  font-size: 1.17em;
-}
-

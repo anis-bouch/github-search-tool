@@ -1,8 +1,14 @@
-@import '../../../../scss/variables.scss';
+@import '../../../../scss/_abstract';
 select {
-  @extend .grey-border;
+  @extend .grey-input-theme;
   height: 48px;
   width: 140px;
   font-size: 1.2rem;
   padding: 10px;
+  @media screen and (max-width: 500px) {
+    width: 20%;
+  }
+  @media screen and (min-width: 500px) and (max-width: 768px) {
+    width: 30%;
+  }
 }

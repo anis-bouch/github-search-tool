@@ -1,0 +1,55 @@
+.grey-input-theme {
+    border-color: $grey-shadow;
+    border-style: solid;
+    border-radius: 2px;
+    border-width: 1px;
+    color: $grey-placeholder;
+  }
+  
+  .display-flex-start-center {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    height: 70px;
+  }
+  
+  .bold {
+    font-weight: bold;
+  }
+  
+  .big-font {
+    font-size: 1.17em;
+  }
+  
+  .fixed-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .mt-15p {
+    margin: 15% auto;
+  }
+  .mt-5p {
+    margin: 5% auto;
+  }
+
+  .base-card {
+    width: 25%;
+    height: 230px;
+    background-color: #fff;
+    background: linear-gradient(#f8f8f8, #fff);
+    box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.4);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    margin: 1.5rem;
+    @media screen and (max-width: 500px) {
+      width: 50%;
+    }
+    @media screen and (min-width: 500px) and (max-width: 768px) {
+      width: 33%;
+    }
+  }

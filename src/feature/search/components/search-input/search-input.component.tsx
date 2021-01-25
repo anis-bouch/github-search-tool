@@ -3,14 +3,15 @@ import { proceedSearch } from '../../state/searchActionCreators';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchByEnum } from '../../state/searchTypes';
 import { RootStore } from '../../../../store';
+import { debounce } from '../../../../helpers/debounce';
 /**
  * SearchInput, is the definition of our inpuit component, which will be used to type term of our search.
  */
 export function SearchInput() {
   const dispatch = useDispatch();
   const searchState = useSelector((state: RootStore) => state.search);
-  const triggerSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value.length > 3) {
+  const triggerSearch = debounce((event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value.length > 2) {
       dispatch(
         proceedSearch(
           event.target.value,
@@ -27,7 +28,7 @@ export function SearchInput() {
         )
       );
     }
-  };
+  }, 1000);
 
   return (
     <input
@@ -35,7 +36,6 @@ export function SearchInput() {
       name=''
       id=''
       placeholder='Start typing to search ..'
-      disabled={searchState.loading}
       onChange={triggerSearch}
     />
   );
