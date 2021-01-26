@@ -3,14 +3,13 @@ import { useSelector } from 'react-redux';
 import { SearchList } from '../feature/search/components/list/search-list.component';
 import { SearchInput } from '../feature/search/components/search-input/search-input.component';
 import { SearchType } from '../feature/search/components/type-select-box/search-type.component';
-import { searchByEnum } from '../feature/search/state/search.types';
-import { RootStore } from '../store';
+import { GlobalState, searchByEnum } from '../feature/search/state/search.types';
 import './main-layout.module.scss';
 /**
  * MainLayout, is a react component which hold the layout of our app.
  */
 export function MainLayout() {
-  const searchState = useSelector((state: RootStore) => state.search);
+  const searchState = useSelector((state: GlobalState) => state);
   const list: any[] =
     searchState.searchType === searchByEnum.USERS
       ? searchState.usersToBeShown

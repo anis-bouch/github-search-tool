@@ -1,9 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootStore } from '../../../../store';
 import { Repository } from '../../state/models/repos.model';
 import { User } from '../../state/models/users.model';
-import { searchByEnum } from '../../state/search.types';
+import { GlobalState, searchByEnum } from '../../state/search.types';
 import { SearchListCardRepo } from './search-list-card-repo.component';
 import { SearchListCardUser } from './search-list-card-user.component';
 
@@ -13,7 +12,7 @@ import { SearchListCardUser } from './search-list-card-user.component';
  * a react component to show a list of cards based on the data in the state 
  */
 export function SearchList() {
-  const searchState = useSelector((state: RootStore) => state.search);
+  const searchState = useSelector((state: GlobalState) => state);
   const usersList: User[] = searchState.usersToBeShown;
   const repoList: Repository[] = searchState.repositoriesToBeShown;
   return searchState.searchType === searchByEnum.USERS ? (
