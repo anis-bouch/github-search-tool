@@ -1,17 +1,20 @@
-import { fetchReposByName } from './../../../api/api';
+import { fetchReposByName } from '../../../api/api';
 import {
+  CustomPayload,
+  ErrorPayload,
+  FetchDataFromApiType,
+  FetchDataFromLocalType,
   FetchListActions,
-  LoadFromLocalPayload,
   SearchActionTypes,
   searchByEnum,
   SuccessActionPayload,
-} from './searchTypes';
+} from './search.types';
 import { Dispatch } from 'redux';
 import { fetchUsersByUserName } from '../../../api/api';
 import { ApiResponse } from '../../../api/api-response';
 import { AxiosResponse } from 'axios';
-import { User } from './models/users';
-import { Repository } from './models/repos';
+import { User } from './models/users.model';
+import { Repository } from './models/repos.model';
 
 /**
  * Action creator which will dispatch a function to the search reducer.
@@ -32,6 +35,46 @@ export const proceedSearch = (
     : fetchDataFromApi(searchTerm, type);
 
 /**
+ * Action creator responsible for dispatching an action about changing the search type (user | repo)
+ *
+ * @param searchTerm the text typed by user in the input text.
+ * @param type type of search , whether by user or by repository.
+ * @param isCached a boolean flag to determine if we fetch data from api or from our cached data.
+ *
+ * @returns a function which dispatch the needed action for doing the search.
+ */
+
+export const toggleSearchType = (
+  type: string,
+  searchTerm: string,
+  isCached: boolean,
+  dispatcher: Dispatch<any>
+) =>
+  searchTerm.length <= 2
+    ? changedSearchType(type, searchTerm, false, isCached, dispatcher)
+    : changedSearchType(type, searchTerm, true, isCached, dispatcher);
+/**
+ *
+ * @param searchTerm the text typed by user in the input text.
+ * @param type type of search , whether by user or by repository.
+ *
+ * @returns a function of type Dispatch<SearchActionTypes<CustomPayload>> t
+ */
+export const clearList = (searchTerm: string, type: string) => async (
+  dispatch: Dispatch<SearchActionTypes<CustomPayload>>
+) => {
+  dispatch({
+    type: FetchListActions.CLEAR_LIST,
+    payload: {
+      searchTerm,
+      searchBy: type,
+    } as CustomPayload,
+  });
+};
+
+// Local functions used only here
+
+/**
  * Local function to return the actions related to fetching data from API.
  *
  * @param searchTerm the text typed by user in the input text.
@@ -40,11 +83,13 @@ export const proceedSearch = (
  * @returns a function which dispatch the needed action for doing the search.
  */
 const fetchDataFromApi = (searchTerm: string, type: string) => async (
-  dispatch: Dispatch<SearchActionTypes<any>>
+  dispatch: Dispatch<SearchActionTypes<FetchDataFromApiType>>
 ) => {
+  console.log('test');
+
   dispatch({
     type: FetchListActions.LIST_LOADING,
-    payload: null,
+    payload: searchTerm,
   });
   try {
     const dataFromRemote =
@@ -71,7 +116,8 @@ const fetchDataFromApi = (searchTerm: string, type: string) => async (
       payload: {
         code: 12,
         message: e,
-      },
+        searchTerm,
+      } as ErrorPayload,
     });
   }
 };
@@ -85,7 +131,7 @@ const fetchDataFromApi = (searchTerm: string, type: string) => async (
  * @returns a function which dispatch the needed action for doing the search.
  */
 const fetchDataFromLocalStorage = (searchTerm: string, type: string) => async (
-  dispatch: Dispatch<SearchActionTypes<any>>
+  dispatch: Dispatch<SearchActionTypes<FetchDataFromLocalType>>
 ) => {
   dispatch({
     type: FetchListActions.LIST_LOADING,
@@ -97,24 +143,34 @@ const fetchDataFromLocalStorage = (searchTerm: string, type: string) => async (
       payload: {
         searchTerm,
         searchBy: type,
-      } as LoadFromLocalPayload,
+      } as CustomPayload,
     });
   }, 1000);
 };
 
 /**
- * Action creator responsible for dispatching an action about changing the search type (user | repo)
+ * Local function to return the actions which will be dispatched for switching the search type .
  *
- * @param type
+ * @param searchTerm the text typed by user in the input text.
+ * @param type type of search , whether by user or by repository.
  *
- * @returns a function which dispatch the needed action for doing the search.
+ * @returns a function which dispatch the needed action to change the type of search between user and repo
  */
 
-export const toggleSearchType = (type: string) => (
-  dispatch: Dispatch<SearchActionTypes<string>>
-) => {
+const changedSearchType = (
+  type: string,
+  searchTerm: string,
+  shouldSearch: boolean,
+  isCached: boolean,
+  dispatcher: Dispatch<any>
+) => async (dispatch: Dispatch<SearchActionTypes<any>>) => {
   dispatch({
     type,
-    payload: 'null',
+    payload: searchTerm,
   });
+  setTimeout(() => {
+    if (shouldSearch) {
+      dispatcher(proceedSearch(searchTerm, type, isCached));
+    }
+  }, 200);
 };

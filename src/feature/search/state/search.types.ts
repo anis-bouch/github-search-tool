@@ -1,5 +1,5 @@
-import { Repository } from './models/repos';
-import { User } from './models/users';
+import { Repository } from './models/repos.model';
+import { User } from './models/users.model';
 /**
  * SearchActionTypes is a Generic interface to describe an action type.
  */
@@ -25,6 +25,7 @@ export enum FetchListActions {
   LIST_FAILED = 'LIST_FAILED',
   LIST_SUCCESS = 'LIST_SUCCESS',
   LOAD_FROM_LOCAL = 'LOAD_FROM_LOCAL',
+  CLEAR_LIST = 'CLEAR_LIST',
 }
 
 /**
@@ -41,9 +42,15 @@ export interface SuccessActionPayload {
  * LoadFromLocalPayload, its an interface which describes the type of payloads which will be dispatched,
  * to tell the reducer we are fetching data from local storage
  */
-export interface LoadFromLocalPayload {
+export interface CustomPayload {
   searchTerm: string;
   searchBy: string;
+}
+
+export interface ErrorPayload {
+  code: number;
+  message: string;
+  searchTerm: string;
 }
 
 /**
@@ -57,14 +64,19 @@ export interface GlobalState {
   previousSearchesUsers: string[];
   previousSearchesRepositories: string[];
   searchType: string;
+  currentSearchTerm: string;
   loading: boolean;
   error: ApiError;
 }
 
 /**
- * apiError, ts an interface which describes the object which will be sent to reduced in case we get an API error
+ * apiError, is an interface which describes the object which will be sent to reduced in case we get an API error
  */
 export interface ApiError {
   code: number;
   message: string;
 }
+
+
+export type FetchDataFromApiType = string | SuccessActionPayload | ErrorPayload;
+export type FetchDataFromLocalType = null | CustomPayload;

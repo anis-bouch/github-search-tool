@@ -7,9 +7,10 @@
   flex-direction: column;
   .search-header {
     @extend .display-flex-start-center;
+    height: 70px;
     flex-direction: row;
     width: 500px;
-    @media screen  and (max-width: 768px) {
+    @media screen and (max-width: 768px) {
       width: 60%;
     }
     .logo {

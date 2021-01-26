@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { SearchList } from '../feature/search/components/list/search-list.component';
 import { SearchInput } from '../feature/search/components/search-input/search-input.component';
 import { SearchType } from '../feature/search/components/type-select-box/search-type.component';
-import { searchByEnum } from '../feature/search/state/searchTypes';
+import { searchByEnum } from '../feature/search/state/search.types';
 import { RootStore } from '../store';
 import './main-layout.module.scss';
 /**
@@ -29,8 +29,8 @@ export function MainLayout() {
         </div>
       </div>
       <div className='search-container'>
-        <SearchInput></SearchInput>
-        <SearchType></SearchType>
+        <SearchInput {...searchState}></SearchInput>
+        <SearchType {...searchState}></SearchType>
       </div>
       <div className="search-list">
         <SearchList></SearchList>

@@ -1,34 +1,32 @@
 import { ChangeEvent } from 'react';
-import { proceedSearch } from '../../state/searchActionCreators';
-import { useDispatch, useSelector } from 'react-redux';
-import { searchByEnum } from '../../state/searchTypes';
-import { RootStore } from '../../../../store';
+import { clearList, proceedSearch } from '../../state/search.action';
+import { useDispatch } from 'react-redux';
+import { GlobalState, searchByEnum } from '../../state/search.types';
 import { debounce } from '../../../../helpers/debounce';
 /**
  * SearchInput, is the definition of our inpuit component, which will be used to type term of our search.
  */
-export function SearchInput() {
+export function SearchInput(state: GlobalState) {
   const dispatch = useDispatch();
-  const searchState = useSelector((state: RootStore) => state.search);
   const triggerSearch = debounce((event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 2) {
       dispatch(
         proceedSearch(
           event.target.value,
-          searchState.searchType === searchByEnum.USERS
-            ? searchByEnum.USERS
-            : searchByEnum.REPOSITORY,
-          searchState.searchType === searchByEnum.USERS
-            ? !!searchState.previousSearchesUsers.find(
+          state.searchType,
+          state.searchType === searchByEnum.USERS
+            ? !!state.previousSearchesUsers.find(
                 (user) => user === event.target.value
               )
-            : !!searchState.previousSearchesRepositories.find(
+            : !!state.previousSearchesRepositories.find(
                 (repo) => repo === event.target.value
               )
         )
       );
+    } else {
+        dispatch(clearList(event.target.value, state.searchType));
     }
-  }, 1000);
+  }, 800);
 
   return (
     <input
