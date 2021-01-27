@@ -47,7 +47,7 @@ export function MainLayout() {
       </div>
       <div className={searchState.loading ? 'progress-line' : 'hide'}></div>
       <ErrorPage {...searchState.error}></ErrorPage>
-      <div className={!showNoResult ? 'hide' : ''}>
+      <div className={!showNoResult ||  searchState.loading? 'hide' : ''}>
         <NoResult></NoResult>
       </div>
       <div className='search-list'>

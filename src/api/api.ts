@@ -9,7 +9,7 @@ import { apiHeaders, apiUrls } from './api.types';
 export const fetchUsersByUserName = async (searchTerm: string) =>
   axios.get(apiUrls.users, {
     headers: apiHeaders,
-    params: { q: searchTerm },
+    params: { q: searchTerm, per_page: 100 },
   });
 
 
@@ -22,6 +22,6 @@ export const fetchUsersByUserName = async (searchTerm: string) =>
 export const fetchReposByName = async (searchTerm: string) => {
   return axios.get(apiUrls.repositories, {
     headers: apiHeaders,
-    params: { q: searchTerm },
+    params: { q: searchTerm, per_page: 100 },
   });
 };
