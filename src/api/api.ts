@@ -1,24 +1,5 @@
 import axios from 'axios';
-/**
- * Github root Url
- */
-export const appRootUrl: string = 'https://api.github.com/';
-
-/**
- * GitHub URLs for search by users or reposotpries
- */
-export const apiUrls = {
-  users: appRootUrl + 'search/users',
-  repositories: appRootUrl + 'search/repositories',
-};
-
-/**
- * Our api headers, which will be user inside an http call.
- */
-const apiHeaders = {
-  Accept: 'application/vnd.github.v3+json',
-};
-
+import { apiHeaders, apiUrls } from './api.types';
 /**
  * fetchUsersByUserName, its a function which will call the user search api via axios.
  * @param searchTerm the text typed by user in the input text.

@@ -4,10 +4,7 @@ import { MainLayout } from './layout/main-layout.component';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-       
-      </header>
+    <div>
       <main>
         <MainLayout></MainLayout>
       </main>

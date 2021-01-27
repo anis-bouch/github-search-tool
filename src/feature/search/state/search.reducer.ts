@@ -19,6 +19,10 @@ export const searchReducer = (
         ...state,
         loading: true,
         currentSearchTerm: action.payload ? action.payload : state.currentSearchTerm,
+        error: {
+          code:0,
+          message: ''
+        }
       };
     }
     case FetchListActions.LIST_FAILED: {
@@ -61,6 +65,10 @@ export const searchReducer = (
             ? state.cachedRepositories.concat(action.payload.repos)
             : state.cachedRepositories,
         currentSearchTerm: action.payload.searchTerm,
+        error: {
+          code:0,
+          message: ''
+        }
       };
 
     case FetchListActions.LOAD_FROM_LOCAL: {
@@ -68,18 +76,22 @@ export const searchReducer = (
         ...state,
         usersToBeShown:
           action.payload.searchBy === searchByEnum.USERS
-            ? state.usersToBeShown.filter((user) =>
-                user.login.includes(action.payload.searchTerm)
+            ? state.cachedUsers.filter((user) =>
+                user.login.indexOf(action.payload.searchTerm) !== -1
               )
             : state.usersToBeShown,
         repositoriesToBeShown:
           action.payload.searchBy === searchByEnum.REPOSITORY
-            ? state.repositoriesToBeShown.filter((repo) =>
-                repo.full_name.includes(action.payload.searchTerm)
+            ? state.cachedRepositories.filter((repo) =>
+                repo.full_name.indexOf(action.payload.searchTerm) !== -1
               )
             : state.repositoriesToBeShown,
         loading: false,
         currentSearchTerm: action.payload.searchTerm,
+        error: {
+          code:0,
+          message: ''
+        }
       };
     }
     case searchByEnum.REPOSITORY:
@@ -87,6 +99,10 @@ export const searchReducer = (
         ...state,
         searchType: searchByEnum.REPOSITORY,
         currentSearchTerm: action.payload,
+        error: {
+          code:0,
+          message: ''
+        }
       };
 
     case searchByEnum.USERS:
@@ -94,6 +110,10 @@ export const searchReducer = (
         ...state,
         searchType: searchByEnum.USERS,
         currentSearchTerm: action.payload,
+        error: {
+          code:0,
+          message: ''
+        }
       };
 
     case FetchListActions.CLEAR_LIST:
@@ -103,6 +123,10 @@ export const searchReducer = (
         currentSearchTerm: action.payload.searchTerm,
         usersToBeShown: [],
         repositoriesToBeShown: [],
+        error: {
+          code:0,
+          message: ''
+        }
       };
 
     default:

@@ -19,8 +19,9 @@ export function SearchListCardRepo(repo: Repository): JSX.Element {
               href={repo.html_url}
               data-size='large'
               aria-label={`Star ${repo.name}`}
+              data-icon='octicon-star'
             >
-              Follow Repo ({repo.stargazers_count})
+              Stars ({repo.stargazers_count})
             </GitHubButton>
             <GitHubButton
               href={repo.owner.html_url}

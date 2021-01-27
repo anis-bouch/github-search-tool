@@ -1,4 +1,3 @@
-import { fetchReposByName } from '../../../api/api';
 import {
   CustomPayload,
   ErrorPayload,
@@ -10,11 +9,11 @@ import {
   SuccessActionPayload,
 } from './search.types';
 import { Dispatch } from 'redux';
-import { fetchUsersByUserName } from '../../../api/api';
-import { ApiResponse } from '../../../api/api-response';
+import { fetchUsersByUserName, fetchReposByName } from '../../../api/api';
 import { AxiosResponse } from 'axios';
 import { User } from './models/users.model';
 import { Repository } from './models/repos.model';
+import { ApiResponse } from '../../../api/api.types';
 
 /**
  * Action creator which will dispatch a function to the search reducer.
@@ -114,7 +113,7 @@ const fetchDataFromApi = (searchTerm: string, type: string) => async (
     dispatch({
       type: FetchListActions.LIST_FAILED,
       payload: {
-        code: 12,
+        code: 500,
         message: e,
         searchTerm,
       } as ErrorPayload,
