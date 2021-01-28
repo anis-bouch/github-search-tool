@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>feature/search/components/search-input/search-input.component | github-search-tool</title>
+	<title>helpers/helpers | github-search-tool</title>
 	<meta name="description" content="Documentation for github-search-tool">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules.html">github-search-tool</a>
 				</li>
 				<li>
-					<a href="feature_search_components_search_input_search_input_component.html">feature/search/components/search-input/search-input.component</a>
+					<a href="helpers_helpers.html">helpers/helpers</a>
 				</li>
 			</ul>
-			<h1>Module feature/search/components/search-input/search-input.component</h1>
+			<h1>Module helpers/helpers</h1>
 		</div>
 	</div>
 </header>
@@ -72,7 +72,8 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="feature_search_components_search_input_search_input_component.html#searchinput" class="tsd-kind-icon">Search<wbr>Input</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter"><a href="helpers_helpers.html#debounce" class="tsd-kind-icon">debounce</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="helpers_helpers.html#truncatebiggertext" class="tsd-kind-icon">truncate<wbr>Bigger<wbr>Text</a></li>
 							</ul>
 						</section>
 					</div>
@@ -80,31 +81,68 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="searchinput" class="tsd-anchor"></a>
-					<h3>Search<wbr>Input</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">Search<wbr>Input<span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">: </span><a href="../interfaces/feature_search_state_search_types.globalstate.html" class="tsd-signature-type" data-tsd-kind="Interface">GlobalState</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+					<a name="debounce" class="tsd-anchor"></a>
+					<h3>debounce</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">debounce&lt;F&gt;<span class="tsd-signature-symbol">(</span>func<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">F</span>, wait<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">F</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/anis-bouch/github-search-tool/blob/6dd8cd9/src/feature/search/components/search-input/search-input.component.tsx#L9">src/feature/search/components/search-input/search-input.component.tsx:9</a></li>
+									<li>Defined in <a href="https://github.com/anis-bouch/github-search-tool/blob/6dd8cd9/src/helpers/helpers.ts#L15">src/helpers/helpers.ts:15</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>SearchInput, is the definition of our inpuit component, which will be used to type term of our search.</p>
-								</div>
-							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>F<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span></h4>
+								</li>
+							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>state: <a href="../interfaces/feature_search_state_search_types.globalstate.html" class="tsd-signature-type" data-tsd-kind="Interface">GlobalState</a></h5>
+									<h5>func: <span class="tsd-signature-type">F</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>a call back function</p>
+									</div>
+								</li>
+								<li>
+									<h5>wait: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the wait time</p>
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">F</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="truncatebiggertext" class="tsd-anchor"></a>
+					<h3>truncate<wbr>Bigger<wbr>Text</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">truncate<wbr>Bigger<wbr>Text<span class="tsd-signature-symbol">(</span>text<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/anis-bouch/github-search-tool/blob/6dd8cd9/src/helpers/helpers.ts#L6">src/helpers/helpers.ts:6</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>text: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>a string to truncate if it&#39;s length is above 30 caracters.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>a truncated text or an original text</p>
 						</li>
 					</ul>
 				</section>
@@ -117,14 +155,17 @@
 						<a href="../modules.html">Exports</a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="feature_search_components_search_input_search_input_component.html">feature/search/components/search-<wbr>input/search-<wbr>input.component</a>
+						<a href="helpers_helpers.html">helpers/helpers</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="helpers_helpers.html#debounce" class="tsd-kind-icon">debounce</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="feature_search_components_search_input_search_input_component.html#searchinput" class="tsd-kind-icon">Search<wbr>Input</a>
+						<a href="helpers_helpers.html#truncatebiggertext" class="tsd-kind-icon">truncate<wbr>Bigger<wbr>Text</a>
 					</li>
 				</ul>
 			</nav>

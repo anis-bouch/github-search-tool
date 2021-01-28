@@ -2,10 +2,12 @@ import GitHubButton from 'react-github-btn';
 import { User } from '../../state/models/users.model';
 
 /**
- * @returns Jsx Element which will be rendered by react Engine
+ * @returns JSX.Element
  * @param user a user object as props
+ * Component which represent the user card inside the list
+ *
  */
-export function SearchListCardUser(user: User): JSX.Element {
+ export function SearchListCardUser(user: User): JSX.Element {
   return (
     <div className='user-card'>
        <div className='card-body'>

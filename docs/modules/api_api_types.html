@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>store | github-search-tool</title>
+	<title>api/api.types | github-search-tool</title>
 	<meta name="description" content="Documentation for github-search-tool">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules.html">github-search-tool</a>
 				</li>
 				<li>
-					<a href="store.html">store</a>
+					<a href="api_api_types.html">api/api.types</a>
 				</li>
 			</ul>
-			<h1>Module store</h1>
+			<h1>Module api/api.types</h1>
 		</div>
 	</div>
 </header>
@@ -70,55 +70,87 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Type aliases</h3>
+							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="store.html#rootstore" class="tsd-kind-icon">Root<wbr>Store</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/api_api_types.apiresponse.html" class="tsd-kind-icon">Api<wbr>Response</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="store.html#persistor" class="tsd-kind-icon">persistor</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="store.html#store-1" class="tsd-kind-icon">store</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="api_api_types.html#apiheaders" class="tsd-kind-icon">api<wbr>Headers</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="api_api_types.html#apiurls" class="tsd-kind-icon">api<wbr>Urls</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="api_api_types.html#approoturl" class="tsd-kind-icon">app<wbr>Root<wbr>Url</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Type aliases</h2>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
-					<a name="rootstore" class="tsd-anchor"></a>
-					<h3>Root<wbr>Store</h3>
-					<div class="tsd-signature tsd-kind-icon">Root<wbr>Store<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ReturnType</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">typeof </span><a href="root_reducer.html#default" class="tsd-signature-type" data-tsd-kind="Function">default</a><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/anis-bouch/github-search-tool/blob/6dd8cd9/src/store.ts#L17">src/store.ts:17</a></li>
-						</ul>
-					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Variables</h2>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="persistor" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> persistor</h3>
-					<div class="tsd-signature tsd-kind-icon">persistor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Persistor</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<a name="apiheaders" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> api<wbr>Headers</h3>
+					<div class="tsd-signature tsd-kind-icon">api<wbr>Headers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>Accept<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/anis-bouch/github-search-tool/blob/6dd8cd9/src/store.ts#L15">src/store.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/anis-bouch/github-search-tool/blob/6dd8cd9/src/api/api.types.ts#L28">src/api/api.types.ts:28</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Our api headers, which will be user inside an http call.</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>Accept<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="store-1" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> store</h3>
-					<div class="tsd-signature tsd-kind-icon">store<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Store</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/feature_search_state_search_types.globalstate.html" class="tsd-signature-type" data-tsd-kind="Interface">GlobalState</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">PersistPartial</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>dispatch<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> = ...</span></div>
+					<a name="apiurls" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> api<wbr>Urls</h3>
+					<div class="tsd-signature tsd-kind-icon">api<wbr>Urls<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>repositories<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>users<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/anis-bouch/github-search-tool/blob/6dd8cd9/src/store.ts#L13">src/store.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/anis-bouch/github-search-tool/blob/6dd8cd9/src/api/api.types.ts#L20">src/api/api.types.ts:20</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>GitHub URLs for search by users or reposotpries</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>repositories<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>users<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="approoturl" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> app<wbr>Root<wbr>Url</h3>
+					<div class="tsd-signature tsd-kind-icon">app<wbr>Root<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#x27;https://api.github.com/&#x27;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/anis-bouch/github-search-tool/blob/6dd8cd9/src/api/api.types.ts#L15">src/api/api.types.ts:15</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Github root Url</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -129,20 +161,23 @@
 						<a href="../modules.html">Exports</a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="store.html">store</a>
+						<a href="api_api_types.html">api/api.types</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="store.html#rootstore" class="tsd-kind-icon">Root<wbr>Store</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="../interfaces/api_api_types.apiresponse.html" class="tsd-kind-icon">Api<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="store.html#persistor" class="tsd-kind-icon">persistor</a>
+						<a href="api_api_types.html#apiheaders" class="tsd-kind-icon">api<wbr>Headers</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="store.html#store-1" class="tsd-kind-icon">store</a>
+						<a href="api_api_types.html#apiurls" class="tsd-kind-icon">api<wbr>Urls</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="api_api_types.html#approoturl" class="tsd-kind-icon">app<wbr>Root<wbr>Url</a>
 					</li>
 				</ul>
 			</nav>
