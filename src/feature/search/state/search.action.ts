@@ -84,8 +84,6 @@ export const clearList = (searchTerm: string, type: string) => async (
 const fetchDataFromApi = (searchTerm: string, type: string) => async (
   dispatch: Dispatch<SearchActionTypes<FetchDataFromApiType>>
 ) => {
-  console.log('test');
-
   dispatch({
     type: FetchListActions.LIST_LOADING,
     payload: searchTerm,
@@ -114,7 +112,7 @@ const fetchDataFromApi = (searchTerm: string, type: string) => async (
       type: FetchListActions.LIST_FAILED,
       payload: {
         code: 500,
-        message: e,
+        message: 'Oops, Something went Wrong',
         searchTerm,
       } as ErrorPayload,
     });
@@ -136,7 +134,6 @@ const fetchDataFromLocalStorage = (searchTerm: string, type: string) => async (
     type: FetchListActions.LIST_LOADING,
     payload: null,
   });
-  setTimeout(() => {
     dispatch({
       type: FetchListActions.LOAD_FROM_LOCAL,
       payload: {
@@ -144,7 +141,6 @@ const fetchDataFromLocalStorage = (searchTerm: string, type: string) => async (
         searchBy: type,
       } as CustomPayload,
     });
-  }, 1000);
 };
 
 /**
@@ -167,9 +163,7 @@ const changedSearchType = (
     type,
     payload: searchTerm,
   });
-  setTimeout(() => {
     if (shouldSearch) {
       dispatcher(proceedSearch(searchTerm, type, isCached));
     }
-  }, 200);
 };

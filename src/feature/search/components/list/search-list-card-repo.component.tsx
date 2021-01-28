@@ -12,7 +12,7 @@ export function SearchListCardRepo(repo: Repository): JSX.Element {
           <img className='img-fluid' src={repo.owner.avatar_url} alt='repo owner avatar' />
         </div>
         <div className='rep-content'>
-          <h3 className='name'>{repo.name}</h3>
+          <h3 className='name'>{repo.full_name}</h3>
           <h4 className='more'>{repo.owner.login}</h4>
           <div className='github-links'>
             <GitHubButton

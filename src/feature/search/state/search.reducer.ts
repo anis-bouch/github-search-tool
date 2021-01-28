@@ -1,7 +1,6 @@
 import { searchByEnum, FetchListActions } from './search.types';
 import { initState } from './init-data';
 import { GlobalState } from './search.types';
-import { AnyAction } from 'redux';
 /**
  * Search reducer , which is the function responsible about updating our state with no side effects.
  * @param state our global state
@@ -11,7 +10,7 @@ import { AnyAction } from 'redux';
  */
 export const searchReducer = (
   state: GlobalState = initState,
-  action: AnyAction
+  action: any
 ): GlobalState => {
   switch (action.type) {
     case FetchListActions.LIST_LOADING: {
@@ -29,7 +28,7 @@ export const searchReducer = (
       return {
         ...state,
         loading: false,
-        currentSearchTerm: action.payload,
+        currentSearchTerm: action.payload.searchTerm,
         error: {
           code: action.payload.code,
           message: action.payload.message,
