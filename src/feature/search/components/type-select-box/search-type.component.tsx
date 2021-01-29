@@ -12,8 +12,6 @@ export function SearchType(state: GlobalState) {
   ];
   const dispatch = useDispatch();
   const selectSearchType = (event: ChangeEvent<HTMLSelectElement>) => {
-      console.log(event.target.value);
-      
     dispatch(
       toggleSearchType(
         event.target.value,

@@ -9,9 +9,7 @@ import { debounce } from '../../../../helpers/helpers';
 export function SearchInput(state: GlobalState) {
   const dispatch = useDispatch();
   const triggerSearch = debounce((event: KeyboardEvent<HTMLInputElement>) => {
-    
     const element = event.target as HTMLInputElement;
-    console.log(event.key);
     if (element.value.length > 2) {
       dispatch(
         proceedSearch(
