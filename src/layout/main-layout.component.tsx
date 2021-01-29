@@ -20,7 +20,7 @@ export function MainLayout() {
       ? searchState.usersToBeShown
       : searchState.repositoriesToBeShown;
   const showNoResult: boolean =
-    !list?.length && searchState?.currentSearchTerm?.length > 0;
+    !list?.length && searchState?.currentSearchTerm?.length > 2;
 
   return (
     <div
@@ -47,7 +47,7 @@ export function MainLayout() {
       </div>
       <div className={searchState.loading ? 'progress-line' : 'hide'}></div>
       <ErrorPage {...searchState.error}></ErrorPage>
-      <div className={!showNoResult ||  searchState.loading? 'hide' : ''}>
+      <div className={(!showNoResult ||  searchState.loading)? 'hide' : ''}>
         <NoResult></NoResult>
       </div>
       <div className='search-list'>
