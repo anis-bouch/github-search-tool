@@ -1,35 +1,41 @@
+import React, {Component} from "react";
 import { ApiError } from "../../feature/search/state/search.types";
 
-export function ErrorPage(error: ApiError) {
-  return error.message ? (
-    <div className='error-page'>
-      <div className='browser'>
-        <div className='controls'>
-          <i></i>
-          <i></i>
-          <i></i>
+export class ErrorPage extends Component<ApiError> {
+  render() {
+    const { message } = this.props;
+    return message ? (
+      <div className='error-page'>
+        <div className='browser'>
+          <div className='controls'>
+            <i></i>
+            <i></i>
+            <i></i>
+          </div>
+          <div className='eye'></div>
+          <div className='eye'></div>
+          <div className='mouth'>
+            <div className='lips'></div>
+            <div className='lips'></div>
+            <div className='lips'></div>
+            <div className='lips'></div>
+            <div className='lips'></div>
+            <div className='lips'></div>
+            <div className='lips'></div>
+            <div className='lips'></div>
+          </div>
         </div>
-        <div className='eye'></div>
-        <div className='eye'></div>
-        <div className='mouth'>
-          <div className='lips'></div>
-          <div className='lips'></div>
-          <div className='lips'></div>
-          <div className='lips'></div>
-          <div className='lips'></div>
-          <div className='lips'></div>
-          <div className='lips'></div>
-          <div className='lips'></div>
-        </div>
+        <h1>Oops, something has gone wrong.</h1>
+        <p>
+          We're unable to fulfill your request. Rest assured we have been notified
+          and are looking into the issue. Please refresh your browser.
+        </p>
       </div>
-      <h1>Oops, something has gone wrong.</h1>
-      <p>
-        We're unable to fulfill your request. Rest assured we have been notified
-        and are looking into the issue. Please refresh your browser.
-      </p>
-    </div>
-  ) : null;
+    ) : null;
+  }
+  
 }
+
 
 
 // design of this component was found at https://codepen.io/roguetue/pen/JLMXJp
