@@ -1,0 +1,536 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>github-search-tool</title>
+	<meta name="description" content="Documentation for github-search-tool">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">github-search-tool</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>github-search-tool</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#git-search-tool" id="git-search-tool" style="color: inherit; text-decoration: none;">
+					<h1>Git Search tool</h1>
+				</a>
+				<a href="#tools-used-in-this-project" id="tools-used-in-this-project" style="color: inherit; text-decoration: none;">
+					<h2>Tools used in this project</h2>
+				</a>
+				<ul>
+					<li>React/Redux.</li>
+					<li>Redux-Thunk.</li>
+					<li>Axios</li>
+					<li>Redux-Persist.</li>
+					<li>Sass.</li>
+				</ul>
+				<hr>
+				<a href="#folder-structure" id="folder-structure" style="color: inherit; text-decoration: none;">
+					<h2>Folder Structure</h2>
+				</a>
+				<details>
+					<summary>Docs</summary>
+					<p>contains a generated Html with typedoc, for code documentation (Types, Interfaces .....).</p>
+				</details>
+				<details>
+					<summary>Public</summary>
+					<p>Folder contains static elements.</p>
+				</details>
+				<details>
+					<summary>src</summary>
+					<p>Contains the source code of the app..</p>
+					<details>
+						<summary>__mocks__</summary>
+						<p>contains all the mocks for testing the app.</p>
+					</details>
+					<details>
+						<summary>api</summary>
+						<p>contains all the code necessary for communicating with the API (Axios lib )</p>
+					</details>
+					<details>
+						<summary>features</summary>
+						<p>contains all the code responsible for the search logic feature (components, actions, reducer , types and tests)</p>
+					</details>
+					<details>
+						<summary>helpers</summary>
+						<p>contains a file which provide global functions to be used as helpers to achieve a goal.</p>
+					</details>
+					<details>
+						<summary>layout</summary>
+						<p>contains react components and their styles, to scafold the app layout and also static pages to be rendered in a special case like error or no results</p>
+					</details>
+					<details>
+						<summary>scss</summary>
+						<p>sass global files</p>
+					</details>
+				</details>
+				<hr>
+				<a href="#approach-used-for-implementation" id="approach-used-for-implementation" style="color: inherit; text-decoration: none;">
+					<h2>Approach used for implementation</h2>
+				</a>
+				<a href="#ui" id="ui" style="color: inherit; text-decoration: none;">
+					<h3>UI</h3>
+				</a>
+				<p>The layout contains: </p>
+				<ul>
+					<li>The input text is a react component, represent an HTML input text.
+						the flow is very simple, after typing more than 2 characters, action will be dispatched, a progress bar under the input will appear until the request is fulfilled. The outcome of this action depends on the response coming from Github API(or Local), 3 situations were handled: <ul>
+							<li>Success: a list (users or repository depends on the search params) will be shown.</li>
+							<li>Error: an error will appear under the search bar.</li>
+							<li>No Results: a no result component will appear in case the search will return no value.</li>
+						</ul>
+					</li>
+					<li>The Select box, also a react component that represents an Html select/option element.
+						the flow of the selection has a dependence on the value entered in the input field.<ul>
+							<li>if the length of the string value is less than 3, action will be triggered to change the type of search from user to a repository and vice versa. (no impact on the UI).</li>
+							<li>if the length is equal to 3 or above, 2 actions will be triggered successively, the first will change the search to the type of search, the 2n one will trigger the search again.</li>
+						</ul>
+					</li>
+					<li>The list is a container for another react component, which is the card that holds the search data (User or Repository). it will show the search result based on the entered data (term and type) and then it will show either users or repository. </li>
+				</ul>
+				<hr>
+				<a href="#logic" id="logic" style="color: inherit; text-decoration: none;">
+					<h3>Logic</h3>
+				</a>
+				<a href="#scaffolding" id="scaffolding" style="color: inherit; text-decoration: none;">
+					<h4>Scaffolding</h4>
+				</a>
+				<p>As we mentioned before the project was built with react/redux.
+				The project config is as follows: </p>
+				<p><strong><em>store.ts</em></strong></p>
+				<pre><code><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">createStore</span><span style="color: #000000">, </span><span style="color: #001080">applyMiddleware</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;redux&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">composeWithDevTools</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;redux-devtools-extension&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">thunk</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;redux-thunk&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">persistStore</span><span style="color: #000000">, </span><span style="color: #001080">persistReducer</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;redux-persist&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">storage</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;redux-persist/lib/storage&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">searchReducer</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;./feature/search/state/search.reducer&#039;</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">persistConfig</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">  </span><span style="color: #001080">key:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;root&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">storage</span><span style="color: #000000">,</span>
+<span style="color: #000000">};</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">persistedReducer</span><span style="color: #000000"> = </span><span style="color: #795E26">persistReducer</span><span style="color: #000000">(</span><span style="color: #001080">persistConfig</span><span style="color: #000000">, </span><span style="color: #001080">searchReducer</span><span style="color: #000000">);</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">store</span><span style="color: #000000"> = </span><span style="color: #795E26">createStore</span><span style="color: #000000">( </span><span style="color: #001080">persistedReducer</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #795E26">composeWithDevTools</span><span style="color: #000000">(</span><span style="color: #795E26">applyMiddleware</span><span style="color: #000000">(</span><span style="color: #001080">thunk</span><span style="color: #000000">)))</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">persistor</span><span style="color: #000000"> = </span><span style="color: #795E26">persistStore</span><span style="color: #000000">(</span><span style="color: #001080">store</span><span style="color: #000000">)</span>
+</code></pre>
+				<p><strong><em>the global state</em></strong> </p>
+				<pre><code><span style="color: #008000">/**</span>
+<span style="color: #008000"> * global state, it&#039;s an interface that describes our global state structure.</span>
+<span style="color: #008000"> */</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">interface</span><span style="color: #000000"> </span><span style="color: #267F99">GlobalState</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">usersToBeShown</span><span style="color: #000000">: </span><span style="color: #267F99">User</span><span style="color: #000000">[]; </span><span style="color: #008000">//  users which will be shown in the list if search type is users</span>
+<span style="color: #000000">  </span><span style="color: #001080">repositoriesToBeShown</span><span style="color: #000000">: </span><span style="color: #267F99">Repository</span><span style="color: #000000">[]; </span><span style="color: #008000">// repos which will be shown in the list if search tyoe is repo</span>
+<span style="color: #000000">  </span><span style="color: #001080">cachedUsers</span><span style="color: #000000">: </span><span style="color: #267F99">User</span><span style="color: #000000">[]; </span><span style="color: #008000">// array of users which have been fetched from api before, concatinated with every new users come from API </span>
+<span style="color: #000000">  </span><span style="color: #001080">cachedRepositories</span><span style="color: #000000">: </span><span style="color: #267F99">Repository</span><span style="color: #000000">[]; </span><span style="color: #008000">// array of repos which have been fetched from api before, concatinated with every new repos come from API </span>
+<span style="color: #000000">  </span><span style="color: #001080">previousSearchesUsers</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">[]; </span><span style="color: #008000">// all the search terms to fetch users, which has  been entered before.</span>
+<span style="color: #000000">  </span><span style="color: #001080">previousSearchesRepositories</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">[]; </span><span style="color: #008000">// all the search terms to fetch repos, which has  been entered before.</span>
+<span style="color: #000000">  </span><span style="color: #001080">searchType</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">; </span><span style="color: #008000">// search type user or repository</span>
+<span style="color: #000000">  </span><span style="color: #001080">currentSearchTerm</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">; </span><span style="color: #008000">// the current search term in the input field </span>
+<span style="color: #000000">  </span><span style="color: #001080">loading</span><span style="color: #000000">: </span><span style="color: #267F99">boolean</span><span style="color: #000000">; </span><span style="color: #008000">// flag to show loading in the ui </span>
+<span style="color: #000000">  </span><span style="color: #001080">error</span><span style="color: #000000">: </span><span style="color: #267F99">ApiError</span><span style="color: #000000">; </span><span style="color: #008000">// an object which holds the error data, in case the api returns an error</span>
+<span style="color: #000000">}</span>
+
+<span style="color: #008000">/**</span>
+<span style="color: #008000"> * API error is an interface that describes the object which will be sent to the reducer in case we get an API error</span>
+<span style="color: #008000"> */</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">interface</span><span style="color: #000000"> </span><span style="color: #267F99">ApiError</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">code</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #001080">message</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<p><strong><em>index.ts</em></strong></p>
+				<pre><code><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">React</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;react&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">ReactDOM</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;react-dom&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;./index.scss&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">App</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;./App&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">Provider</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;react-redux&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">store</span><span style="color: #000000">, </span><span style="color: #001080">persistor</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;./store&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">PersistGate</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;redux-persist/integration/react&#039;</span><span style="color: #000000">;</span>
+
+<span style="color: #001080">ReactDOM</span><span style="color: #000000">.</span><span style="color: #795E26">render</span><span style="color: #000000">(</span>
+<span style="color: #000000">  &lt;</span><span style="color: #001080">Provider</span><span style="color: #000000"> </span><span style="color: #001080">store</span><span style="color: #000000">={</span><span style="color: #001080">store</span><span style="color: #000000">}&gt;</span>
+<span style="color: #000000">    &lt;</span><span style="color: #001080">PersistGate</span><span style="color: #000000"> </span><span style="color: #001080">loading</span><span style="color: #000000">={</span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">} </span><span style="color: #001080">persistor</span><span style="color: #000000">={</span><span style="color: #001080">persistor</span><span style="color: #000000">}&gt;</span>
+<span style="color: #000000">      &lt;</span><span style="color: #001080">App</span><span style="color: #000000"> /&gt;</span>
+<span style="color: #000000">    &lt;/</span><span style="color: #001080">PersistGate</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">  &lt;/</span><span style="color: #001080">Provider</span><span style="color: #000000">&gt;,</span>
+<span style="color: #000000">  </span><span style="color: #001080">document</span><span style="color: #000000">.</span><span style="color: #795E26">getElementById</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;root&#039;</span><span style="color: #000000">)</span>
+<span style="color: #000000">);</span>
+
+</code></pre>
+				<hr>
+				<a href="#app-flow" id="app-flow" style="color: inherit; text-decoration: none;">
+					<h3>App Flow</h3>
+				</a>
+				<a href="#typing-the-search-term" id="typing-the-search-term" style="color: inherit; text-decoration: none;">
+					<h4>Typing the search term</h4>
+				</a>
+				<p>When the user is typing in the input text, and after a debounce effect of 800ms, a function will be dispatched, this function is a thunk action creator, the function has 2 logical branches, it will either do an API call to fetch data or fetch from local storage.</p>
+				<pre><code><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">proceedSearch</span><span style="color: #000000"> = (</span>
+<span style="color: #000000">  </span><span style="color: #001080">searchTerm</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">type</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">isCached</span><span style="color: #000000">: </span><span style="color: #267F99">boolean</span>
+<span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span>
+<span style="color: #000000">  </span><span style="color: #001080">isCached</span>
+<span style="color: #000000">    ? </span><span style="color: #795E26">fetchDataFromLocalStorage</span><span style="color: #000000">(</span><span style="color: #001080">searchTerm</span><span style="color: #000000">, </span><span style="color: #001080">type</span><span style="color: #000000">)</span>
+<span style="color: #000000">    : </span><span style="color: #795E26">fetchDataFromApi</span><span style="color: #000000">(</span><span style="color: #001080">searchTerm</span><span style="color: #000000">, </span><span style="color: #001080">type</span><span style="color: #000000">);</span>
+</code></pre>
+				<p>the &#39;isCached&#39; param is the flag which will make the function go to  SPECIFIC LOGICAL branch, and it&#39;s determined from state like the following: </p>
+				<pre><code><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">searchType</span><span style="color: #000000"> === </span><span style="color: #001080">searchByEnum</span><span style="color: #000000">.</span><span style="color: #0070C1">USERS</span>
+<span style="color: #000000">            ? !!</span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">previousSearchesUsers</span><span style="color: #000000">.</span><span style="color: #795E26">includes</span><span style="color: #000000">(</span><span style="color: #001080">event</span><span style="color: #000000">.</span><span style="color: #001080">target</span><span style="color: #000000">.</span><span style="color: #001080">value</span><span style="color: #000000">)</span>
+<span style="color: #000000">            : !!</span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">previousSearchesRepositories</span><span style="color: #000000">.</span><span style="color: #795E26">includes</span><span style="color: #000000">(</span><span style="color: #001080">event</span><span style="color: #000000">.</span><span style="color: #001080">target</span><span style="color: #000000">.</span><span style="color: #001080">value</span><span style="color: #000000">)</span>
+</code></pre>
+				<ul>
+					<li>if the entered term exists in our state (whether it&#39;s for user or repository) then isCached becomes true, and the function will call &#39;fetchDataFromLocalStorage(searchTerm, type)&#39; which will return the actions: </li>
+				</ul>
+				<pre><code><span style="color: #000000">{</span>
+<span style="color: #000000">    type: </span><span style="color: #001080">FetchListActions</span><span style="color: #000000">.</span><span style="color: #0070C1">LIST_LOADING</span><span style="color: #000000">,</span>
+<span style="color: #000000">    payload: </span><span style="color: #0000FF">null</span><span style="color: #000000">,</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<p>and </p>
+				<pre><code><span style="color: #000000">{</span>
+<span style="color: #000000">      type: </span><span style="color: #001080">FetchListActions</span><span style="color: #000000">.</span><span style="color: #0070C1">LOAD_FROM_LOCAL</span><span style="color: #000000">,</span>
+<span style="color: #000000">      payload: {</span>
+<span style="color: #000000">        </span><span style="color: #001080">searchTerm</span><span style="color: #000000">,</span>
+<span style="color: #000000">        searchBy: </span><span style="color: #001080">type</span><span style="color: #000000">,</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<p>Actions are  dispatched to our reducer, now the reducer will catch the first action and process it as following: </p>
+				<pre><code><span style="color: #AF00DB">case</span><span style="color: #000000"> </span><span style="color: #001080">FetchListActions</span><span style="color: #000000">.</span><span style="color: #0070C1">LIST_LOADING</span><span style="color: #000000">: {</span>
+<span style="color: #000000">      return {</span>
+<span style="color: #000000">        ...</span><span style="color: #001080">state</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">loading:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">currentSearchTerm:</span><span style="color: #000000"> </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000"> ? </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000"> : </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">currentSearchTerm</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">error:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">          </span><span style="color: #001080">code:</span><span style="color: #098658">0</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #001080">message:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span>
+<span style="color: #000000">        }</span>
+<span style="color: #000000">      };</span>
+<span style="color: #000000">    }</span>
+</code></pre>
+				<p>the reducer will update some fields in the state, and the most critical field in this code is the loading flag, cause it will be responsible for showing the progress bar in the UI.
+				Now,the reducer will catch the 2nd action, and process it as following: </p>
+				<pre><code><span style="color: #AF00DB">case</span><span style="color: #000000"> </span><span style="color: #001080">FetchListActions</span><span style="color: #000000">.</span><span style="color: #0070C1">LOAD_FROM_LOCAL</span><span style="color: #000000">: {</span>
+<span style="color: #000000">      return {</span>
+<span style="color: #000000">        ...</span><span style="color: #001080">state</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">usersToBeShown:</span>
+<span style="color: #000000">          </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">searchBy</span><span style="color: #000000"> === </span><span style="color: #001080">searchByEnum</span><span style="color: #000000">.</span><span style="color: #0070C1">USERS</span>
+<span style="color: #000000">            ? </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">cachedUsers</span><span style="color: #000000">.</span><span style="color: #795E26">filter</span><span style="color: #000000">((</span><span style="color: #001080">user</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span>
+<span style="color: #000000">                </span><span style="color: #001080">user</span><span style="color: #000000">.</span><span style="color: #001080">login</span><span style="color: #000000">.</span><span style="color: #795E26">indexOf</span><span style="color: #000000">(</span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">searchTerm</span><span style="color: #000000">) !== -</span><span style="color: #098658">1</span>
+<span style="color: #000000">              )</span>
+<span style="color: #000000">            : </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">usersToBeShown</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">repositoriesToBeShown:</span>
+<span style="color: #000000">          </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">searchBy</span><span style="color: #000000"> === </span><span style="color: #001080">searchByEnum</span><span style="color: #000000">.</span><span style="color: #0070C1">REPOSITORY</span>
+<span style="color: #000000">            ? </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">cachedRepositories</span><span style="color: #000000">.</span><span style="color: #795E26">filter</span><span style="color: #000000">((</span><span style="color: #001080">repo</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span>
+<span style="color: #000000">                </span><span style="color: #001080">repo</span><span style="color: #000000">.</span><span style="color: #001080">full_name</span><span style="color: #000000">.</span><span style="color: #795E26">indexOf</span><span style="color: #000000">(</span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">searchTerm</span><span style="color: #000000">) !== -</span><span style="color: #098658">1</span>
+<span style="color: #000000">              )</span>
+<span style="color: #000000">            : </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">repositoriesToBeShown</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">loading:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">currentSearchTerm:</span><span style="color: #000000"> </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">searchTerm</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">error:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">          </span><span style="color: #001080">code:</span><span style="color: #098658">0</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #001080">message:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span>
+<span style="color: #000000">        }</span>
+<span style="color: #000000">      };</span>
+<span style="color: #000000">    }</span>
+</code></pre>
+				<p>the reducer will check if the current search type is user or repository, then based on that will it will choose to fill the userToBeshown or repositoriesToBeShown, from the cached data saved in our state. also, the loading will be false.</p>
+				<ul>
+					<li>Now if isCached is false, the &#39; fetchDataFromApi(searchTerm, type) &#39; will be called, and it will dispatch 2 actions, the loading action which we had seen before, and one of the following actions:  <ul>
+							<li>if the Axios get method is successful<pre><code><span style="color: #000000">{</span>
+<span style="color: #000000"> type: </span><span style="color: #001080">FetchListActions</span><span style="color: #000000">.</span><span style="color: #0070C1">LIST_SUCCESS</span><span style="color: #000000">,</span>
+<span style="color: #000000"> payload: {</span>
+<span style="color: #000000">   searchBy: </span><span style="color: #001080">type</span><span style="color: #000000">,</span>
+<span style="color: #000000">   repos:</span>
+<span style="color: #000000">     </span><span style="color: #001080">type</span><span style="color: #000000"> === </span><span style="color: #001080">searchByEnum</span><span style="color: #000000">.</span><span style="color: #0070C1">REPOSITORY</span><span style="color: #000000"> ? </span><span style="color: #001080">dataFromRemote</span><span style="color: #000000">.</span><span style="color: #001080">data</span><span style="color: #000000">.</span><span style="color: #001080">items</span><span style="color: #000000"> : [],</span>
+<span style="color: #000000">   users: </span><span style="color: #001080">type</span><span style="color: #000000"> === </span><span style="color: #001080">searchByEnum</span><span style="color: #000000">.</span><span style="color: #0070C1">USERS</span><span style="color: #000000"> ? </span><span style="color: #001080">dataFromRemote</span><span style="color: #000000">.</span><span style="color: #001080">data</span><span style="color: #000000">.</span><span style="color: #001080">items</span><span style="color: #000000"> : [],</span>
+<span style="color: #000000">   </span><span style="color: #001080">searchTerm</span><span style="color: #000000">,</span>
+<span style="color: #000000">}</span>
+</code></pre>
+							</li>
+							<li>if an error occurred while fetching data from API<pre><code><span style="color: #000000">{</span>
+<span style="color: #000000"> type: </span><span style="color: #001080">FetchListActions</span><span style="color: #000000">.</span><span style="color: #0070C1">LIST_FAILED</span><span style="color: #000000">,</span>
+<span style="color: #000000"> payload: {</span>
+<span style="color: #000000">   code: </span><span style="color: #098658">500</span><span style="color: #000000">,</span>
+<span style="color: #000000">   message: </span><span style="color: #A31515">&#039;Oops, Something went Wrong&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">   </span><span style="color: #001080">searchTerm</span><span style="color: #000000">,</span>
+<span style="color: #000000">}</span>
+</code></pre>
+								Again the reducer will catch the actions and will process the loading action like this : <pre><code><span style="color: #AF00DB">case</span><span style="color: #000000"> </span><span style="color: #001080">FetchListActions</span><span style="color: #000000">.</span><span style="color: #0070C1">LIST_SUCCESS</span><span style="color: #000000">:</span>
+<span style="color: #000000"> </span><span style="color: #AF00DB">return</span><span style="color: #000000"> {</span>
+<span style="color: #000000">   ...</span><span style="color: #001080">state</span><span style="color: #000000">,</span>
+<span style="color: #000000">   </span><span style="color: #001080">usersToBeShown:</span>
+<span style="color: #000000">     </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">searchBy</span><span style="color: #000000"> === </span><span style="color: #001080">searchByEnum</span><span style="color: #000000">.</span><span style="color: #0070C1">USERS</span>
+<span style="color: #000000">       ? </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">users</span>
+<span style="color: #000000">       : </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">usersToBeShown</span><span style="color: #000000">,</span>
+<span style="color: #000000">   </span><span style="color: #001080">repositoriesToBeShown:</span>
+<span style="color: #000000">     </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">searchBy</span><span style="color: #000000"> === </span><span style="color: #001080">searchByEnum</span><span style="color: #000000">.</span><span style="color: #0070C1">REPOSITORY</span>
+<span style="color: #000000">       ? </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">repos</span>
+<span style="color: #000000">       : </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">repositoriesToBeShown</span><span style="color: #000000">,</span>
+<span style="color: #000000">   </span><span style="color: #001080">previousSearchesUsers:</span>
+<span style="color: #000000">     </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">searchBy</span><span style="color: #000000"> === </span><span style="color: #001080">searchByEnum</span><span style="color: #000000">.</span><span style="color: #0070C1">USERS</span>
+<span style="color: #000000">       ? [</span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">searchTerm</span><span style="color: #000000">, ...</span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">previousSearchesUsers</span><span style="color: #000000">]</span>
+<span style="color: #000000">       : </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">previousSearchesUsers</span><span style="color: #000000">,</span>
+<span style="color: #000000">   </span><span style="color: #001080">previousSearchesRepositories:</span>
+<span style="color: #000000">     </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">searchBy</span><span style="color: #000000"> === </span><span style="color: #001080">searchByEnum</span><span style="color: #000000">.</span><span style="color: #0070C1">REPOSITORY</span>
+<span style="color: #000000">       ? [</span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">searchTerm</span><span style="color: #000000">, ...</span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">previousSearchesRepositories</span><span style="color: #000000">]</span>
+<span style="color: #000000">       : </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">previousSearchesRepositories</span><span style="color: #000000">,</span>
+<span style="color: #000000">   </span><span style="color: #001080">loading:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000">,</span>
+<span style="color: #000000">   </span><span style="color: #001080">cachedUsers:</span>
+<span style="color: #000000">     </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">searchBy</span><span style="color: #000000"> === </span><span style="color: #001080">searchByEnum</span><span style="color: #000000">.</span><span style="color: #0070C1">USERS</span>
+<span style="color: #000000">       ? </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">cachedUsers</span><span style="color: #000000">.</span><span style="color: #795E26">concat</span><span style="color: #000000">(</span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">users</span><span style="color: #000000">)</span>
+<span style="color: #000000">       : </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">cachedUsers</span><span style="color: #000000">,</span>
+<span style="color: #000000">   </span><span style="color: #001080">cachedRepositories:</span>
+<span style="color: #000000">     </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">searchBy</span><span style="color: #000000"> === </span><span style="color: #001080">searchByEnum</span><span style="color: #000000">.</span><span style="color: #0070C1">REPOSITORY</span>
+<span style="color: #000000">       ? </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">cachedRepositories</span><span style="color: #000000">.</span><span style="color: #795E26">concat</span><span style="color: #000000">(</span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">repos</span><span style="color: #000000">)</span>
+<span style="color: #000000">       : </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">cachedRepositories</span><span style="color: #000000">,</span>
+<span style="color: #000000">   </span><span style="color: #001080">currentSearchTerm:</span><span style="color: #000000"> </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">searchTerm</span><span style="color: #000000">,</span>
+<span style="color: #000000">   </span><span style="color: #001080">error:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">     </span><span style="color: #001080">code:</span><span style="color: #098658">0</span><span style="color: #000000">,</span>
+<span style="color: #000000">     </span><span style="color: #001080">message:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span>
+<span style="color: #000000">   }</span>
+<span style="color: #000000"> };</span>
+</code></pre>
+							the reducer will check the type of search, if its user or repository, and based on that, it will update =&gt; usersToBeShown or repositoriesToBeShown, then it will add the search term to either previousSearchesUsers or previousSearchesRepositories according to type, and finally, it will push the data into our cached arrays, cachedUsers or cachedRepositories. </li>
+						</ul>
+					</li>
+				</ul>
+				<p>Up to this point, the search by typing logic is covered, and our state now can be updated successfully based on the entered data. </p>
+				<hr>
+				<a href="#change-the-search-type" id="change-the-search-type" style="color: inherit; text-decoration: none;">
+					<h4>Change the search type</h4>
+				</a>
+				<p>When the user changes the type of search in the UI, a function <code>selectSearchType</code> will be called: </p>
+				<pre><code><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">selectSearchType</span><span style="color: #000000"> = (</span><span style="color: #001080">event</span><span style="color: #000000">: </span><span style="color: #267F99">ChangeEvent</span><span style="color: #000000">&lt;</span><span style="color: #267F99">HTMLSelectElement</span><span style="color: #000000">&gt;) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">event</span><span style="color: #000000">.</span><span style="color: #001080">target</span><span style="color: #000000">.</span><span style="color: #001080">value</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">    </span><span style="color: #795E26">dispatch</span><span style="color: #000000">(</span>
+<span style="color: #000000">      </span><span style="color: #795E26">toggleSearchType</span><span style="color: #000000">(</span>
+<span style="color: #000000">        </span><span style="color: #001080">event</span><span style="color: #000000">.</span><span style="color: #001080">target</span><span style="color: #000000">.</span><span style="color: #001080">value</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">currentSearchTerm</span><span style="color: #000000">,</span>
+<span style="color: #000000">        !!</span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">previousSearchesUsers</span><span style="color: #000000">.</span><span style="color: #795E26">find</span><span style="color: #000000">(</span>
+<span style="color: #000000">          (</span><span style="color: #001080">user</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">user</span><span style="color: #000000"> === </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">currentSearchTerm</span>
+<span style="color: #000000">        ) &amp;&amp;</span>
+<span style="color: #000000">          !!</span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">previousSearchesRepositories</span><span style="color: #000000">.</span><span style="color: #795E26">find</span><span style="color: #000000">(</span>
+<span style="color: #000000">            (</span><span style="color: #001080">repo</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">repo</span><span style="color: #000000"> === </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">currentSearchTerm</span>
+<span style="color: #000000">          ),</span>
+<span style="color: #000000">        </span><span style="color: #001080">dispatch</span>
+<span style="color: #000000">      )</span>
+<span style="color: #000000">    );</span>
+<span style="color: #000000">  };</span>
+</code></pre>
+				<p> which will call an action creator : </p>
+				<pre><code><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">toggleSearchType</span><span style="color: #000000"> = (</span>
+<span style="color: #000000"> </span><span style="color: #001080">type</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">,</span>
+<span style="color: #000000"> </span><span style="color: #001080">searchTerm</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">,</span>
+<span style="color: #000000"> </span><span style="color: #001080">isCached</span><span style="color: #000000">: </span><span style="color: #267F99">boolean</span><span style="color: #000000">,</span>
+<span style="color: #000000"> </span><span style="color: #001080">dispatcher</span><span style="color: #000000">: </span><span style="color: #267F99">Dispatch</span><span style="color: #000000">&lt;</span><span style="color: #267F99">any</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span>
+<span style="color: #000000"> </span><span style="color: #001080">searchTerm</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000"> &lt;= </span><span style="color: #098658">2</span>
+<span style="color: #000000">   ? </span><span style="color: #795E26">changedSearchType</span><span style="color: #000000">(</span><span style="color: #001080">type</span><span style="color: #000000">, </span><span style="color: #001080">searchTerm</span><span style="color: #000000">, </span><span style="color: #0000FF">false</span><span style="color: #000000">, </span><span style="color: #001080">isCached</span><span style="color: #000000">, </span><span style="color: #001080">dispatcher</span><span style="color: #000000">)</span>
+<span style="color: #000000">   : </span><span style="color: #795E26">changedSearchType</span><span style="color: #000000">(</span><span style="color: #001080">type</span><span style="color: #000000">, </span><span style="color: #001080">searchTerm</span><span style="color: #000000">, </span><span style="color: #0000FF">true</span><span style="color: #000000">, </span><span style="color: #001080">isCached</span><span style="color: #000000">, </span><span style="color: #001080">dispatcher</span><span style="color: #000000">);</span>
+</code></pre>
+				<p>As you can see here, there is a parameter called dispatcher, actually its a work around (i know it&#39;s not the best solution) to dispatch an asynchronous function from another function inside the actions logic. So, the <code>toggleSearchType</code> will call a function : </p>
+				<pre><code><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">changedSearchType</span><span style="color: #000000"> = (</span>
+<span style="color: #000000">  </span><span style="color: #001080">type</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">searchTerm</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">shouldSearch</span><span style="color: #000000">: </span><span style="color: #267F99">boolean</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">isCached</span><span style="color: #000000">: </span><span style="color: #267F99">boolean</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">dispatcher</span><span style="color: #000000">: </span><span style="color: #267F99">Dispatch</span><span style="color: #000000">&lt;</span><span style="color: #267F99">any</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">dispatch</span><span style="color: #000000">: </span><span style="color: #267F99">Dispatch</span><span style="color: #000000">&lt;</span><span style="color: #267F99">SearchActionTypes</span><span style="color: #000000">&lt;</span><span style="color: #267F99">any</span><span style="color: #000000">&gt;&gt;) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">dispatch</span><span style="color: #000000">({</span>
+<span style="color: #000000">    </span><span style="color: #001080">type</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">payload:</span><span style="color: #000000"> </span><span style="color: #001080">searchTerm</span><span style="color: #000000">,</span>
+<span style="color: #000000">  });</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">shouldSearch</span><span style="color: #000000">) {</span>
+<span style="color: #000000">      </span><span style="color: #795E26">dispatcher</span><span style="color: #000000">(</span><span style="color: #795E26">proceedSearch</span><span style="color: #000000">(</span><span style="color: #001080">searchTerm</span><span style="color: #000000">, </span><span style="color: #001080">type</span><span style="color: #000000">, </span><span style="color: #001080">isCached</span><span style="color: #000000">));</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">};</span>
+</code></pre>
+				<p>which will dispatch an action to change searchType , and if <code>shouldSearch</code> is true, it will dispatch the proceedSearch which have explained at the top.</p>
+				<p>Our reducer, will catch <code>{     type,     payload: searchTerm,   }</code> and it will process it as the following: </p>
+				<pre><code><span style="color: #AF00DB">case</span><span style="color: #000000"> </span><span style="color: #001080">searchByEnum</span><span style="color: #000000">.</span><span style="color: #0070C1">REPOSITORY</span><span style="color: #000000">:</span>
+<span style="color: #000000">      </span><span style="color: #AF00DB">return</span><span style="color: #000000"> {</span>
+<span style="color: #000000">        ...</span><span style="color: #001080">state</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">searchType:</span><span style="color: #000000"> </span><span style="color: #001080">searchByEnum</span><span style="color: #000000">.</span><span style="color: #0070C1">REPOSITORY</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">currentSearchTerm:</span><span style="color: #000000"> </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">error:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">          </span><span style="color: #001080">code:</span><span style="color: #098658">0</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #001080">message:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span>
+<span style="color: #000000">        }</span>
+<span style="color: #000000">      };</span>
+
+<span style="color: #000000">    </span><span style="color: #AF00DB">case</span><span style="color: #000000"> </span><span style="color: #001080">searchByEnum</span><span style="color: #000000">.</span><span style="color: #0070C1">USERS</span><span style="color: #000000">:</span>
+<span style="color: #000000">      </span><span style="color: #AF00DB">return</span><span style="color: #000000"> {</span>
+<span style="color: #000000">        ...</span><span style="color: #001080">state</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">searchType:</span><span style="color: #000000"> </span><span style="color: #001080">searchByEnum</span><span style="color: #000000">.</span><span style="color: #0070C1">USERS</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">currentSearchTerm:</span><span style="color: #000000"> </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">error:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">          </span><span style="color: #001080">code:</span><span style="color: #098658">0</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #001080">message:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span>
+<span style="color: #000000">        }</span>
+<span style="color: #000000">      };</span>
+</code></pre>
+				<p>based on which type of search the action dispatched, the reducer will update the searchType value in our state. plus the usual searchTerm and error update.</p>
+				<p>Now, to this point, the logic of changing searchType has been covered. </p>
+				<hr>
+				<a href="#clear-the-list" id="clear-the-list" style="color: inherit; text-decoration: none;">
+					<h4>Clear the list</h4>
+				</a>
+				<p>In this part, the flow is very simple, from our input component, whenever the onChange event is fired, we check if the searchTerm length &lt; 3, we will call a function </p>
+				<pre><code><span style="color: #008000">// from component</span>
+<span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">event</span><span style="color: #000000">.</span><span style="color: #001080">key</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;Backspace&#039;</span><span style="color: #000000">) {</span>
+<span style="color: #000000">        </span><span style="color: #795E26">dispatch</span><span style="color: #000000">(</span><span style="color: #795E26">clearList</span><span style="color: #000000">(</span><span style="color: #001080">element</span><span style="color: #000000">.</span><span style="color: #001080">value</span><span style="color: #000000">, </span><span style="color: #001080">state</span><span style="color: #000000">.</span><span style="color: #001080">searchType</span><span style="color: #000000">));</span>
+<span style="color: #000000">}</span>
+
+<span style="color: #008000">// from search.action.ts</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">clearList</span><span style="color: #000000"> = (</span><span style="color: #001080">searchTerm</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">, </span><span style="color: #001080">type</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span>
+<span style="color: #000000">  </span><span style="color: #001080">dispatch</span><span style="color: #000000">: </span><span style="color: #267F99">Dispatch</span><span style="color: #000000">&lt;</span><span style="color: #267F99">SearchActionTypes</span><span style="color: #000000">&lt;</span><span style="color: #267F99">CustomPayload</span><span style="color: #000000">&gt;&gt;</span>
+<span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">dispatch</span><span style="color: #000000">({</span>
+<span style="color: #000000">    </span><span style="color: #001080">type:</span><span style="color: #000000"> </span><span style="color: #001080">FetchListActions</span><span style="color: #000000">.</span><span style="color: #0070C1">CLEAR_LIST</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">payload:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">searchTerm</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #001080">searchBy:</span><span style="color: #000000"> </span><span style="color: #001080">type</span><span style="color: #000000">,</span>
+<span style="color: #000000">    } </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #267F99">CustomPayload</span><span style="color: #000000">,</span>
+<span style="color: #000000">  });</span>
+<span style="color: #000000">};</span>
+
+</code></pre>
+				<p>and the reducer will process it as : </p>
+				<pre><code><span style="color: #AF00DB">case</span><span style="color: #000000"> </span><span style="color: #001080">FetchListActions</span><span style="color: #000000">.</span><span style="color: #0070C1">CLEAR_LIST</span><span style="color: #000000">:</span>
+<span style="color: #000000">      </span><span style="color: #AF00DB">return</span><span style="color: #000000"> {</span>
+<span style="color: #000000">        ...</span><span style="color: #001080">state</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">searchType:</span><span style="color: #000000"> </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">searchBy</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">currentSearchTerm:</span><span style="color: #000000"> </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span><span style="color: #000000">.</span><span style="color: #001080">searchTerm</span><span style="color: #000000">,</span>
+<span style="color: #000000">        </span><span style="color: #001080">usersToBeShown:</span><span style="color: #000000"> [],</span>
+<span style="color: #000000">        </span><span style="color: #001080">repositoriesToBeShown:</span><span style="color: #000000"> [],</span>
+<span style="color: #000000">        </span><span style="color: #001080">error:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">          </span><span style="color: #001080">code:</span><span style="color: #098658">0</span><span style="color: #000000">,</span>
+<span style="color: #000000">          </span><span style="color: #001080">message:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span>
+<span style="color: #000000">        }</span>
+<span style="color: #000000">      };</span>
+</code></pre>
+				<p> as you can see both lists now are empty.</p>
+				<hr>
+				<a href="#more-info" id="more-info" style="color: inherit; text-decoration: none;">
+					<h2>More Info</h2>
+				</a>
+				<a href="#styles" id="styles" style="color: inherit; text-decoration: none;">
+					<h4>Styles</h4>
+				</a>
+				<ul>
+					<li>in this project, sass(scss) was used to write most of the styles in the app. it was written from scratch with no UI framework.</li>
+					<li>external(found on codepen) scss were used (with customization)  for designing the card content, and the error page<ul>
+							<li><a href="https://codepen.io/FrankieDoodie/pen/NOJpVX" title="Card Design">Card Design</a>.</li>
+							<li><a href="https://codepen.io/roguetue/pen/JLMXJp" title="Error page">Error Page</a>.</li>
+						</ul>
+					</li>
+				</ul>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h4>Documentation</h4>
+				</a>
+				<ul>
+					<li>The code documentation was generated by <a href="https://typedoc.org" title="typedoc">Typedoc</a>. and it will be found under the docs folder. </li>
+				</ul>
+				<a href="#testing" id="testing" style="color: inherit; text-decoration: none;">
+					<h4>Testing</h4>
+				</a>
+				<p>For testing,  jest has been used and all the actions + reducer + API  logic was covered.</p>
+				<a href="#available-scripts" id="available-scripts" style="color: inherit; text-decoration: none;">
+					<h2>Available Scripts</h2>
+				</a>
+				<p>In the project directory, you can run:</p>
+				<a href="#npm-start" id="npm-start" style="color: inherit; text-decoration: none;">
+					<h3><code>npm start</code></h3>
+				</a>
+				<p>Runs the app in the development mode.<br>Open <a href="http://localhost:3000">http://localhost:3000</a> to view it in the browser.</p>
+				<p>The page will reload if you make edits.<br>You will also see any lint errors in the console.</p>
+				<a href="#npm-test" id="npm-test" style="color: inherit; text-decoration: none;">
+					<h3><code>npm test</code></h3>
+				</a>
+				<p>Launches the test runner in the interactive watch mode.<br>See the section about <a href="https://facebook.github.io/create-react-app/docs/running-tests">running tests</a> for more information.</p>
+				<a href="#npm-run-build" id="npm-run-build" style="color: inherit; text-decoration: none;">
+					<h3><code>npm run build</code></h3>
+				</a>
+				<p>Builds the app for production to the <code>build</code> folder.<br>It correctly bundles React in production mode and optimizes the build for the best performance.</p>
+				<p>The build is minified and the filenames include the hashes.<br>Your app is ready to be deployed!</p>
+				<p>See the section about <a href="https://facebook.github.io/create-react-app/docs/deployment">deployment</a> for more information.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
